@@ -1,5 +1,51 @@
+import axios from "axios";
+import React from "react";
+import PieChart from "../Components/PieChart";
+import PieChartD3 from "../Components/PieChartD3";
+import BarChart from "../Components/BarChart";
+
+
+
+const baseURL = "http://localhost:3001";
+
 
 function HomePage() {
+
+    const [post, setPost] = React.useState([]);
+    // const dataSource = {
+    //     datasets: [
+    //         {
+    //             data: [],
+    //             backgroundColor: [
+    //                 '#ffcd56',
+    //                 '#ff6384',
+    //                 '#36a2eb',
+    //                 '#fd6b19',
+    //                 '#1D8348',
+    //                 '#7D3C98',
+    //                 '#E74C3C',
+    //             ],
+    //             backend: ''
+    //         }
+    //     ],
+    //     labels: []
+    // };
+
+
+    
+
+
+    React.useEffect(() => {
+        axios.get(baseURL+'/budget').then((response) => {
+            //console.log(response.data);
+            console.log(response.data);
+           setPost(response.data);
+        });
+      }, []);
+
+    
+    
+    
     return (
       <div className="container center" id="main">
 
@@ -64,19 +110,21 @@ function HomePage() {
   
           <article className="text-box">
               <h1>Chart</h1>
-              <p>
-                  <canvas id="myChart" width="400" height="400"></canvas>
-              </p>
+                <PieChart/>
+                  
+              
           </article>
 
           <article className="text-box">
               <h1>Chart2</h1>
               <p id="myChart2">
+                <PieChartD3></PieChartD3>
               </p>
           </article>
 
-      </div>
-
+    </div>
+   
+      
   </div>
     );
   }
